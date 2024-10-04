@@ -43,7 +43,7 @@ export class AuthService {
 
     } catch (error) {
       if( error.code === 11000 ) {
-        throw new BadRequestException(`${ createUserDto.email } already exists!`)
+        throw new BadRequestException(`${ createUserDto.email } e-mail already exists`)
       }
       throw new InternalServerErrorException('Something terribe happen!!!');
     }
@@ -68,11 +68,11 @@ export class AuthService {
 
     const user = await this.userModel.findOne({ email });
     if ( !user ) {
-      throw new UnauthorizedException('Not valid credentials - email');
+      throw new UnauthorizedException('Invalid e-mail credentials');
     }
     
     if ( !bcryptjs.compareSync( password, user.password ) ) {
-      throw new UnauthorizedException('Not valid credentials - password');
+      throw new UnauthorizedException('Invalid password credentials');
     }
 
     const { password:_, ...rest  } = user.toJSON();
