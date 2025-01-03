@@ -29,7 +29,7 @@ export class AuthController {
   @UseGuards( AuthGuard )
   @Get()
   findAll( @Request() req: Request ) {
-    const findAll = req['user'];
+    //const findAll = req['user'];
     
     return this.authService.findAll();
   }
